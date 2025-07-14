@@ -21,3 +21,11 @@ You can sweep back the funds after testing or after settlement of the shorted fu
 cd src // if not yet in src folder
 node sweep.js
 ```
+
+### Inspect addresses
+Inspect addresses to fund treasury contract
+```
+cd src // if not yet in src folder
+node inspect.js
+
+```
