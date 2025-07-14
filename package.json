@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@bitauth/libauth": "^2.1.0",
+    "@generalprotocols/anyhedge": "^2.0.2",
+    "axios": "^1.10.0",
+    "cashc": "^0.8.0",
+    "cashscript": "^0.11.0-next.4",
+    "dotenv": "^17.2.0"
+  },
+  "type": "module"
+}
