@@ -99,7 +99,7 @@ printDivider();
 const fundingUtxoTxBuilder = contract.functions.unlockWithSig(new SignatureTemplate(OWNER_WIF))
   .withTime(0)
   .from(TREAURY_CONTRACT_UTXOS.length ? TREAURY_CONTRACT_UTXOS : await contract.getUtxos())
-  .to(contractData.address, fundingAmounts.shortFundingUtxoSats);
+  .to(contract.address, fundingAmounts.shortFundingUtxoSats);
 
 const fundingUtxoTx = await fundingUtxoTxBuilder.build();
 const fundingUtxoTxid = hashTransaction(hexToBin(fundingUtxoTx));
