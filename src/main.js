@@ -66,8 +66,8 @@ const contractCreationParameters = {
   shortMutualRedeemPublicKey: ownerPubkey,
   longMutualRedeemPublicKey: longPubkey,
 };
-const contractData = await anyhedgeManager.createContract(contractCreationParameters);
-console.log('CONTRACT COMPILE RESULT |', contractData)
+const compiledContractData = await anyhedgeManager.createContract(contractCreationParameters);
+console.log('CONTRACT COMPILE RESULT |', compiledContractData)
 printDivider();
 
 const proposalData = {
@@ -79,16 +79,16 @@ const proposalResult = await proposeContractPosition(proposalData);
 console.log('PROPOSE CONTRACT RESULT |', proposalResult);
 printDivider();
 
-const accessKeys = await getContractAccessKeys(contractData.address, OWNER_WIF);
+const accessKeys = await getContractAccessKeys(compiledContractData.address, OWNER_WIF);
 const contractStatusFetchOpts = {
   settlementService,
-  contractAddress: contractData.address,
+  contractAddress: compiledContractData.address,
   publicKey: ownerPubkey,
   signature: accessKeys.signature,
 }
 console.log('FETCHING CONTRACT STATUS |', contractStatusFetchOpts);
-const fullContractData = await getContractStatus(contractStatusFetchOpts)
-console.log('FULL CONTRACT DATA |', fullContractData);
+const contractData = await getContractStatus(contractStatusFetchOpts)
+console.log('FULL CONTRACT DATA |', contractData);
 printDivider();
 
 const fundingTxBuilder = contract.functions.spendToAnyhedge(...prepareParamForTreasuryContract(contractData))
@@ -127,7 +127,6 @@ fundingTxBuilder.withTime(0)
 const fundingTxHex = await fundingTxBuilder.build();
 console.log('Funding transaction hex:', fundingTxHex);
 console.log('Broadcasting TX for creating funding UTXO');
-await fundingTxBuilder.send();
 printDivider();
 
 const fundingProposal = {
@@ -140,6 +139,10 @@ const fundingProposal = {
   oracleMessageSequence: priceInfo?.priceData?.messageSequence,
   unlockingScript: extractUnlockingBytecode(fundingTxHex, 0),
 }
+
+console.log('Broadcasting funding UTXO tx');
+console.log('BROADCAST RESULT', await fundingUtxoTxBuilder.send());
+
 console.log('FUNDING PROPOSAL |', fundingProposal);
 const fundingResult = await fundContract(fundingProposal);
 console.log('FUNDING PROPOSAL RESULT |', fundingResult);
