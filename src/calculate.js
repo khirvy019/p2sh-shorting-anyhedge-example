@@ -54,6 +54,9 @@ export function calculateFundingAmounts(opts) {
     longFundingSats: longFundingSats,
 
     calculatedSettlementTxFee: calculatedSettlementTxFee,
+    shortFundingInputSize: tcInputSize,
+    addtlFeeSats: addtlFeeSats,
+    p2shMinerFeeSatoshis: p2shMinerFeeSatoshis,
 
     // data here just for reference
     anyhedgeOriginalCalculations: {
