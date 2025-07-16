@@ -25,12 +25,13 @@ export function baseBytecodeToHex(bytecode) {
   return binToHex(baseBytecode)
 }
 
+
 /**
  * Taken directly from Transaction class' fee calculation
  * Returns the bytesize of contract's transaction input
  * @param {import("cashscript").Transaction} transaction
  */
-export function calculateInputSize(transaction) {
+export function getPlaceholderScript(transaction) {
   const placeholderArgs = transaction.encodedFunctionArgs.map((arg) => (arg instanceof SignatureTemplate ? placeholder(71) : arg));
 
   // Create a placeholder preimage of the correct size
@@ -41,7 +42,16 @@ export function calculateInputSize(transaction) {
   // Create a placeholder input script for size calculation using the placeholder
   // arguments and correctly sized placeholder preimage
   const placeholderScript = createInputScript(transaction.contract.redeemScript, placeholderArgs, transaction.selector);
+  return placeholderScript
+}
 
+/**
+ * Taken directly from Transaction class' fee calculation
+ * Returns the bytesize of contract's transaction input
+ * @param {import("cashscript").Transaction} transaction
+ */
+export function calculateInputSize(transaction) {
+  const placeholderScript = getPlaceholderScript(transaction)
   const contractInputSize = getInputSize(placeholderScript);
   return contractInputSize
 }

@@ -1,4 +1,4 @@
-import { hexToBin, isHex } from "@bitauth/libauth";
+import { cashAddressToLockingBytecode, hexToBin, isHex } from "@bitauth/libauth";
 import { contractDataToParameters, getArtifact, getBaseBytecode, getContractParamBytecodes } from "./anyhedge.js";
 import { encodeParameterBytecode } from "./contracts.js";
 
