@@ -126,7 +126,6 @@ fundingTxBuilder.withTime(0)
 
 const fundingTxHex = await fundingTxBuilder.build();
 console.log('Funding transaction hex:', fundingTxHex);
-console.log('Broadcasting TX for creating funding UTXO');
 printDivider();
 
 const fundingProposal = {
@@ -140,8 +139,10 @@ const fundingProposal = {
   unlockingScript: extractUnlockingBytecode(fundingTxHex, 0),
 }
 
+printDivider();
 console.log('Broadcasting funding UTXO tx');
 console.log('BROADCAST RESULT', await fundingUtxoTxBuilder.send());
+printDivider();
 
 console.log('FUNDING PROPOSAL |', fundingProposal);
 const fundingResult = await fundContract(fundingProposal);

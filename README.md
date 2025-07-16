@@ -2,6 +2,7 @@
 need `.env` in `src` folder:
 ```
 OWNER_WIF='.................'
+ORACLE_PUBKEY='................'
 ```
 
 will be used as contract parameter for smart contract used for p2sh funding

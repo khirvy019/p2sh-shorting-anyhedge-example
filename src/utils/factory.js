@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import { hash256 } from "@cashscript/utils"
 import { compileFile } from 'cashc'
 import { hexToBin } from '@bitauth/libauth';
@@ -10,7 +11,7 @@ import { wifToPubkey } from "./crypto.js"
  * @param {String} opts.ownerWif
  */
 export function createTreasuryContract(opts) {
-  const oraclePubkey = '02d09db08af1ff4e8453919cc866a4be427d7bfe18f2c05e5444c196fcf6fd2818';
+  const oraclePubkey = process.env.ORACLE_PUBKEY
 
   const ownerWif = opts?.ownerWif
   const pubkey = wifToPubkey(ownerWif)
